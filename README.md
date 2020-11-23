@@ -82,5 +82,5 @@ npm start
 
 
 
-![Tela inicial do projeto](./images/home.JPG?raw=true)
+![Tela inicial do projeto](./images/home.JPG?raw=true = 500px)
 
