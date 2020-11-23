@@ -74,13 +74,13 @@ Com o Node.js instalado, acesse o terminal do seu computador e vá até a pasta 
 npm install jquery --save
 ```
 
-O próximo passo já é a execução do projeto, onde o visualiazamos no navegador por meio de um servidor web criado pelo Node.js. Digite o comando abaixo para iniciar esse processo
+O próximo passo já é a execução do projeto, onde o visualiazamos por meio de um servidor web criado pelo Node.js. Digite o comando abaixo para iniciar esse processo
 
 ```
 npm start
 ```
 
+No navegador abrirá uma nova aba com a seguinte URL: http://localhost:3000/ e tela a baixo aparecerá 
 
-
-![Tela inicial do projeto](./images/home.JPG?raw=true = 500px)
+![Tela inicial do projeto](./images/home.JPG)
 
