@@ -80,3 +80,7 @@ O próximo passo já é a execução do projeto, onde o visualiazamos no navegad
 npm start
 ```
 
+
+
+![Tela inicial do projeto](./images/home.JPG?raw=true)
+
