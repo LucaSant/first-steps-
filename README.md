@@ -5,15 +5,18 @@ _Juliana Bernardes Freitas   | 11317928_
 _Lucas Henrique Sant'Anna    | 10748521_  
 _Lucas Viana Vilela          | 10748409_  
 _Rafaela Cristina Bull       | 11233651_  
-__Grupo - 1__  
+
+__Grupo - 1: SITE SA-SHREK__ 
   
 ------------------------------------------  
   
 # Relatório do Projeto: E-Commerce
 ## SCC219 - Introdução ao Desenvolvimento Web
 
+### 1. Requerimentos  
 
-### 1. Requerimentos
+-----------------------------
+### 2. Descrição do Projeto  
 
   
   A descrição do projeto em sua versão final requeria para a presente etapa já algumas funcionalidades. Porém como o e-commerce aqui implementado é voltado para servir a uma entidade universitária para suas eventuais vendas de artigos e eventos, algumas particularidades foram adicionadas aos requerimentos iniciais. E resumo os requerimentos são estes:  
@@ -59,6 +62,111 @@ __Grupo - 1__
       
    - __Responsividade:__  
    Os componentes da página foram implementados para serem responsivos para qualquer tamanho de tela de computador. Grande parte do site não foi configurado para se adaptar para telas mobile, tendo suas estruturas sido definidas dentro das folhas de estilo CSS. Outros janelas e compoenentes, por serem construídos com o framework Bootstrap, têm responsividade com dispositivos mobile, porém são exceções de modo que não há uma página inteira que se mostre compatível em um table ou celular. 
+ 
+------------------------------------ 
+### 3. Comentários sobre o código  
+  
+  
+Apesar do projeto estar muito bem estruturado pela organização que o React permite, é necessário explicar alguns ponto de sua estrutura se quisermos iniciar uma análise sobre o código. 
+
+```
+ <body>
+    <noscript>Para acessar esse site, você deve permitir o uso de JavaScript-BR.</noscript>
+    <div id="root"></div>
+  </body>
+```
+Ao observarmos o <body> do arquivo _index.html_ (pasta _public_), vemos que a única coisa existente é um _div_ de _id="root"_. Isso já é parte da utilização da biblioteca __React__ que no arquivo _index.js_ (pasta _src_) utiliza o método abaixo para que  _App.js_ seja o contéudo do elemento com _id ="root"_.  
+  
+```
+import { DataProvider } from './Context'
+
+ReactDOM.render(<DataProvider><App/></DataProvider>, document.getElementById('root'))
+```
+-------> falar do DataProvider
+
+Analisaremos o _App.js_, usando ele como referência dentro do projeto. Afinal ele é o agregador de todas os outros elementos componentes que serão nossas páginas. Veja que da linha 10 a 25 do código temos importações de componentes que como a _Navbar_ e o _Footer_ ou então o conteúdo das páginas.
+
+``` 
+10  import Navbar from './components/Navbar'
+11  import Footer from './components/Footer'
+12  import Home from './components/Home'
+13  import Login from './components/Login'
+14  import ProductsPanel from './components/ProductsPanel'
+15  import ProductCategoryPanel from './components/ProductCategoryPanel'
+16  import ProductSearch from './components/ProductSearch'
+17  import ProductDetails from './components/ProductDetails'
+18  import ShoppingCart from './components/ShoppingCart'
+19  import Accessibility from './components/Accessibility'
+20  import { DataContext } from './Context'
+21  import MyAccount from './components/MyAccount'
+22  import AdmAccount from './components/AdmAccount'
+23  import ProductEdit from './components/ProductEdit'
+24  import Checkout from './components/Checkout'
+25  import { CheckoutProvider } from './components/CheckoutContext'
+
+```
+
+Temos então todas as páginas serão contruidas por meio do Componente App. Vamos até a linha 35, nela se inicial uma _div_ onde tudo está contido, mas o que nos interessa é linha seguinte. Nela acontece um teste, se o argumento ```props.match.base === 'checkout'``` é verdadeiro ou não, em caso negativo o componente ```<Navbar {...this.props}/>``` aparece na tela, sendo ela a navbar padrão que aparece na página, onde se encontra o Menu, caixa de pesquisa e botão do carrinho de compras, botão de login (ou da conta) e a opção de mudar as cores do site. Isso porque 'checkout' é propriedade que define a navbar do processo de final de compra (Carrinho de compras, Comfirmação de conta, Modo de Pagamento, Confirmação da Compra e Agradecimento pela Compra).  
+
+```
+35  <div id='app'>
+36      <Route path='/:base*' render={props => props.match.params.base === 'checkout' ? '' : <Navbar {...this.props}/>}/>
+            .
+            .
+            .
+124     <Route path='/:base*' render={props => props.match.params.base === 'checkout' ? '' : <Footer/>}/>
+125  </div>      
+
+``` 
+
+Uma condicional semelhante define o _Footer_ que ira aparecer dependendo do conteúdo da página.  
+
+O conteúdo que aparecerá no componente App é definido de forma semelhante, ou pouco mais complexa, mas de lógica semelhante. Veja um trecho abaixo. 
+
+```
+<Switch>
+            {/* Pages */}
+            <Route path='/' exact={true}><Home/></Route>
+
+            <Route path='/:base' render={props => {
+              const {base} = props.match.params
+
+              if(['home', 'início'].includes(base.toLowerCase())){
+                return <Redirect to='/'/>
+              }
+
+              else if(base.toLowerCase() === 'login'){
+                return <Login {...props}/>
+              }
+
+              else if(['login', 'cadastro', 'cadastrar', 'cadastro', 'signup'].includes(base.toLowerCase())){
+                return <Redirect to='/login'/>
+              }
+
+              else if(['eventos', 'events', 'event'].includes(base.toLowerCase()) || 
+                ['produtos', 'products', 'product'].includes(base.toLowerCase())){
+                return <ProductsPanel {...props}/>
+              }
+              
+    .
+    .
+    .
+    
+</Switch>
+
+```
+Observe que depois que ele define ```const {base} = props.match.params```, a função ```toLowerCase()``` da ```base``` que retorna se a página atual onde o usuário está é alguma dos fornecidas para teste. Assim define-se qual conteúdo deve ser mostrado, sendo que muitas páginas permanem a mesma, mudando apenas componentes internos. No código temos o exemplos de ```eventos```, ```events```, ```event```, ```produtos```, ```products``` e ```product```. 
+
+
+
+
+
+
+
+
+
+
+--------------------------------  
 
 ### 4. Build Procedures  
 
@@ -69,8 +177,9 @@ Esse projeto tem um conjunto de passos para que se possa visualizar suas impleme
   
 Para baixar o Node.js basta ir até o site https://nodejs.org/pt-br/ e escolher o arquivo especificado para seu computador e depois instalar.  
 
-Com o Node.js instalado, acesse o terminal do seu computador e vá até a pasta __front-end__ do arquivo baixado do GitHub. O próximos comandos serão dados dentro desta pasta.   
-É necessário instalar o Jquery, uma biblioteca de funções JavaScript que interage no HTML. Essas funções foram usadas amplamente no projeto e a ausência da biblioteca indicaria erro. Para instalar basta escrever
+Com o Node.js instalado, acesse o terminal do seu computador e vá até a pasta __front-end__ do arquivo baixado do GitHub. O próximos comandos serão dados dentro dessa pasta, que é onde esta o arquivo _package.json_.  
+
+É necessário instalar o Jquery, uma biblioteca de funções JavaScript que interage no HTML. Essas funções foram usadas amplamente no projeto e a ausência da biblioteca indicaria erro. Para instalar basta colocar o comando 
 
 ```
 npm install jquery --save
@@ -82,7 +191,44 @@ O próximo passo já é a execução do projeto, onde o visualiazamos por meio d
 npm start
 ```
 
-No navegador abrirá uma nova aba com a seguinte URL: http://localhost:3000/ e tela a baixo aparecerá 
+No navegador abrirá uma nova aba com a seguinte URL: http://localhost:3000/ e tela a baixo aparecerá  
 
-![Tela inicial do projeto](./images/home.JPG?w=200)
 
+![Tela inicial do projeto](./images/home.JPG?w=200)  
+
+  
+  
+--------------------------------------------    
+### 5. Problemas  
+
+  -A realização 
+
+--------------------------------------------
+### 6. Comentários  
+ 
+ - Gostariamos de ressaltar a escolha inicial de não utilizar o cartão de crédito como forma de pagamento e da não necessidade de existir no registro o endereço do cliente, pois a entrega de produtos não é uma opção. O site em desenvolvimento é de uma entidade acadêmica representativa dos alunos de um especifico curso, intituto ou departamento, sendo uma comunidade bem restrita e que trabalha de forma substancialmente local. Tanto suas relações sociais, quanto comerciais, se dão em grande parte de modo presencial com seus colaboradores. Nesse contexto, as ferramentas digitais auxiliam na comunicação e no acesso à processos que presencialmente seriam de pouco valor a ambos os lados e gerariam apenas burocracias, isso justifica por si só a existencia dessa plataforma. Dentro dessa comunidade local, a entrega de produtos não apenas não é viável, como também ilógica dada a distância que o fornenedor está dos clientes, sendo que esses transitam frequentemente pelo espaço onde o outro se encontra. Quanto ao cartão de crédito, é de praxe que SAs, CAs ou DAs não trabalhem com cartão de crédito em seus sites, utilizando mais transferencias/depósitos, pagamentos presenciais ou o PicPay, ferramenta muito difundida entre os universitários.  
+ 
+ - Algumas informações para andar pelo site são necessárias:  
+ 
+    - __Login:__ Há algumas contas registradas no site, tanto de cliente como de administrador. Elas dão acesso a possibilidade de comprar, acessar dados privados ou gerenciamento. Todas elas podem ser identificadas em _Context.js_, mas abaixo estão algumas delas para teste. 
+   
+      >__Conta Cliente:__  
+      >teste@gmail.com  
+      >Teste123  
+      
+      >__Conta Adminis:__  
+      >admin@admin.adm
+      >Admin123
+      
+      
+      
+
+- __Cupom:__ Foi aplicado uma funcionalidade de inserir cupons de desconto aos produtos, para realizar o teste escreva.  
+      
+     >__Cupom de 10% de desconto__  
+     >FLIPRULEZ10  
+      
+     >__Cupom de R$25,00__  
+     >FLIPRULEZ25
+      
+      
