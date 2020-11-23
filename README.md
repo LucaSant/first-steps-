@@ -82,5 +82,5 @@ npm start
 
 No navegador abrirá uma nova aba com a seguinte URL: http://localhost:3000/ e tela a baixo aparecerá 
 
-![Tela inicial do projeto](./images/home.JPG)
+![Tela inicial do projeto](./images/home.JPG?w=200)
 
