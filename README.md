@@ -75,7 +75,7 @@ Apesar do projeto estar muito bem estruturado pela organização que o React per
     <div id="root"></div>
   </body>
 ```
-Ao observarmos o <body> do arquivo _index.html_ (pasta _public_), vemos que a única coisa existente é um _div_ de _id="root"_. Isso já é parte da utilização da biblioteca __React__ que no arquivo _index.js_ (pasta _src_) utiliza o método abaixo para que  _App.js_ seja o contéudo do elemento com _id ="root"_.  
+Ao observarmos o <body> do arquivo _index.html_ (pasta _public_), vemos que a única coisa existente é um _div_ de ```id="root"_```. Isso já é parte da utilização da biblioteca __React__ que no arquivo _index.js_ (pasta _src_) utiliza o método abaixo para que  _App.js_ seja o contéudo do elemento com ```id ="root"```.  
   
 ```
 import { DataProvider } from './Context'
@@ -155,7 +155,7 @@ O conteúdo que aparecerá no componente App é definido de forma semelhante, ou
 </Switch>
 
 ```
-Observe que depois que ele define ```const {base} = props.match.params```, a função ```toLowerCase()``` da ```base``` que retorna se a página atual onde o usuário está é alguma dos fornecidas para teste. Assim define-se qual conteúdo deve ser mostrado, sendo que muitas páginas permanem a mesma, mudando apenas componentes internos. No código temos o exemplos de ```eventos```, ```events```, ```event```, ```produtos```, ```products``` e ```product```. 
+Observe que depois que ele define ```const {base} = props.match.params```, a função ```toLowerCase()``` da ```base``` que retorna se a página atual onde o usuário está é alguma dos fornecidas para teste. Assim define-se qual conteúdo deve ser mostrado, sendo que muitas páginas permanem a mesma, mudando apenas componentes internos. No código temos o exemplos de ```eventos```, ```events```, ```event```, ```produtos```, ```products``` e ```product```. Temos que existem condionametos nesse formato para todos os componentes importados lá no código mais para cima.  
 
 
 
@@ -201,7 +201,20 @@ No navegador abrirá uma nova aba com a seguinte URL: http://localhost:3000/ e t
 --------------------------------------------    
 ### 5. Problemas  
 
-  -A realização 
+  - Durante o desenvolvimento do projeto diversas dificuldades apareceram, muitas delas por falta de experiência com as novas tecnologias necessárias para a implementação de funcionalidades fora do escopo básico. Ou talvez seja melhor avaliado como dificuldades em utilizar tecnologias nada básicas, apesar de úteis e amplamente utilizadas no mercado, como foi o caso de React e Jquery, ou até mesmo CSS. Tranzendo maior especifidade à discussão, os  problemas enfretados até aqui, foram: 
+  
+  - Fazer animações com CSS e Jquery se mostrou um trabalho, que apesar de estéticamente importante, também carrega consigo muito conhecimento e minúcia sobre estes dois tópicos, conhecer sua documentação para aplicar o necessário para aquilo que deseja. Foram muitas as vezes que utilizou-se de funções inadequadas para se fazer determinado efeito e isso resultou em tentivas de correção igualmente inadequadas, quando não inúteis;  
+  
+  - Como em React basicamente tudo é componente, as relações entres eles é imprescindível. Mas sincronizar dados entre eles também se mostra uma tarefa muito complicada, pois os dados fluem naturalmente em um sentido, de ```Componentes Pai_``` para ```Componentes Filho```, mas temos toda uma família de componentes que precisam se relacionar. Felizmente utilizando um componete ```Context``` foi possível cria uma forma viável de sincrozar os componentes que assim necessitavam estar;      
+  
+  - Há algo que não parece complicado, uma trivialidade para alguém de fora, o site preecher na vertical todo o espaço da tela, independente da quantidade de contúedo contido. Entedner melhor o CSS foi a solução;  
+  
+  - Formulários também se mostraram complicadores, para ser mais especifico no que diz respeito a validação em _client-side_ e _input mask_;  
+  
+  - Na segunda etapa do projeto, não foi necessário implementar tudo em React, mas também trabalhar com componetes que utilizavam multíplos contextos. Tarefa difícil de gerenciar e que agrava o problemas centreal, a dificuldade de implementar;  
+  
+  - Por fim apareceram pro fim a passagem de toda plataforma para essa nova tecnologia podia deixar pontas soltas, evidenicias erros escondidos ou incompatibilidades. Resumindo pequenos e médios _bugs_ que atrapalharam o desenvolvimento do projeto e que demandavam mais resistência que habilidade. 
+  
 
 --------------------------------------------
 ### 6. Comentários  
@@ -221,14 +234,13 @@ No navegador abrirá uma nova aba com a seguinte URL: http://localhost:3000/ e t
       >Admin123
       
       
+    
+   - __Cupom:__ Foi aplicado uma funcionalidade de inserir cupons de desconto aos produtos, para realizar o teste escreva.  
       
-
-- __Cupom:__ Foi aplicado uma funcionalidade de inserir cupons de desconto aos produtos, para realizar o teste escreva.  
+      >__Cupom de 10% de desconto__  
+      >FLIPRULEZ10  
       
-     >__Cupom de 10% de desconto__  
-     >FLIPRULEZ10  
-      
-     >__Cupom de R$25,00__  
-     >FLIPRULEZ25
+      >__Cupom de R$25,00__  
+      >FLIPRULEZ25
       
       
